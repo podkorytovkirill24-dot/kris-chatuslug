@@ -1,0 +1,29 @@
+services:
+  - type: worker
+    name: service-bot
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -u bot.py
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: ADMIN_IDS
+        sync: false
+      - key: DB_PATH
+        value: /var/data/bot.sqlite3
+      - key: RATE_LIMIT_SECONDS
+        value: "0.7"
+      - key: PAYMENT_MODE
+        value: simulate
+      - key: CRYPTO_PAY_API_TOKEN
+        sync: false
+      - key: CRYPTO_PAY_BASE_URL
+        value: https://pay.crypt.bot/api
+      - key: WELCOME_STICKER_ID
+        value: ""
+      - key: SCHEDULER_TICK_SECONDS
+        value: "15"
+    disks:
+      - name: bot-data
+        mountPath: /var/data
+        sizeGB: 1
